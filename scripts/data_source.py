@@ -48,6 +48,58 @@ recent_json_index = [
     json_index('shots_by_tbomb', 37),
 ]
 
+ach_json_index = [
+    json_index('PCH016_FirstBlood', 0),
+    json_index('PCH004_Dreadnought', 1),
+    json_index('PCH011_InstantKill', 2),
+    json_index('PCH003_MainCaliber', 3),
+    json_index('PCH005_Support', 4),
+    json_index('PCH006_Withering', 5),
+    json_index('PCH023_Warrior', 6),
+    json_index('PCH010_Retribution', 7),
+    json_index('PCH017_Fireproof', 8),
+    json_index('PCH012_Arsonist', 9),
+    json_index('PCH020_ATBACaliber', 10),
+    json_index('PCH001_DoubleKill', 11),
+    json_index('PCH174_AirDefenseExpert', 12),
+    json_index('PCH019_Detonated', 13),
+    json_index('PCH014_Headbutt', 14),
+    json_index('PCH002_OneSoldierInTheField', 15),
+    json_index('PCH018_Unsinkable', 16),
+    json_index('PCH395_CombatRecon', 17),
+    json_index('PCH366_Warrior_Squad', 18),
+    json_index('PCH367_Support_Squad', 19),
+    json_index('PCH368_Frag_Squad', 20),
+    json_index('PCH364_MainCaliber_Squad', 21),
+    json_index('PCH365_ClassDestroy_Squad', 22)
+]
+
+ach_index_dict = {
+    4277330864: 'PCH016_FirstBlood',
+    4289913776: 'PCH004_Dreadnought',
+    4282573744: 'PCH011_InstantKill',
+    4290962352: 'PCH003_MainCaliber',
+    4288865200: 'PCH005_Support',
+    4287816624: 'PCH006_Withering',
+    4269990832: 'PCH023_Warrior',
+    4283622320: 'PCH010_Retribution',
+    4276282288: 'PCH017_Fireproof',
+    4281525168: 'PCH012_Arsonist',
+    4273136560: 'PCH020_ATBACaliber',
+    4293059504: 'PCH001_DoubleKill',
+    4111655856: 'PCH174_AirDefenseExpert',
+    4274185136: 'PCH019_Detonated',
+    4279428016: 'PCH014_Headbutt',
+    4292010928: 'PCH002_OneSoldierInTheField',
+    4275233712: 'PCH018_Unsinkable',
+    3879920560: 'PCH395_CombatRecon',
+    3910329264: 'PCH366_Warrior_Squad',
+    3909280688: 'PCH367_Support_Squad',
+    3908232112: 'PCH368_Frag_Squad',
+    3912426416: 'PCH364_MainCaliber_Squad',
+    3911377840: 'PCH365_ClassDestroy_Squad'
+}
+
 server_list = {
     'asia': 'http://vortex.worldofwarships.asia',
     'eu': 'http://vortex.worldofwarships.eu',

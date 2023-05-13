@@ -44,36 +44,36 @@ import time
 # print('数据删除成功')
 
 
-def test_db_ship(db_data):
-    # 4074157872
-    shipdata = eval(str(gzip.decompress(db_data), encoding="utf-8"))
-    if '4074157872' in shipdata:
-        return shipdata['4074157872']['pvp'][0]
-    return 0
+# def test_db_ship(db_data):
+#     # 4074157872
+#     shipdata = eval(str(gzip.decompress(db_data), encoding="utf-8"))
+#     if '4074157872' in shipdata:
+#         return shipdata['4074157872']['pvp'][0]
+#     return 0
 
 
-st = time.time()
-con = sqlite3.connect(r'E:\kokomi_database_api\database\user_db\2023619512.db')
-cursorObj = con.cursor()
-cursorObj.execute("SELECT * FROM recent_data")
-rows = cursorObj.fetchall()
-i = 0
-for row in rows:
-    a = {
-        'date': row[0],
-        'hidden': row[1],
-        'update_time': row[2],
-        'last_battle_time': row[3],
-        'leveling_points': row[4],
-        'karma': row[5],
-        'achievements': 0,
-        'ships': test_db_ship(row[7])
-    }
-    i += 1
-    print(a)
-print()
-print(f'从数据库读取{i}个日期数据，耗时{round(time.time()-st,4)}s')
-print()
+# st = time.time()
+# con = sqlite3.connect(r'E:\kokomi_database_api\database\user_db\2023619512.db')
+# cursorObj = con.cursor()
+# cursorObj.execute("SELECT * FROM recent_data")
+# rows = cursorObj.fetchall()
+# i = 0
+# for row in rows:
+#     a = {
+#         'date': row[0],
+#         'hidden': row[1],
+#         'update_time': row[2],
+#         'last_battle_time': row[3],
+#         'leveling_points': row[4],
+#         'karma': row[5],
+#         'achievements': 0,
+#         'ships': test_db_ship(row[7])
+#     }
+#     i += 1
+#     print(a)
+# print()
+# print(f'从数据库读取{i}个日期数据，耗时{round(time.time()-st,4)}s')
+# print()
 # with open(f'dbtest.json', 'w', encoding='utf-8') as f:
 #     f.write(json.dumps(b))
 # f.close()

@@ -1,0 +1,4 @@
+DatabaseConfig:
+    DatabasePath : E:\kokomi_database_api\database\user_db
+ApiToken:
+    WargamingApiToken : aaaa630bfc681dfdbc13c3327eac2e85
