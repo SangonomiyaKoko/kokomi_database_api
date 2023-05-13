@@ -234,8 +234,8 @@ def get_all_ship_data(
         return {'status': 'error', 'message': '程序内部错误,请联系麻麻解决'}
 
 
-# a = get_all_ship_data(aid='2023619512', server='asia')
+a = get_all_ship_data(aid='2023619512', server='asia')
 
-# with open('temp.json', 'w', encoding='utf-8') as f:
-#     f.write(json.dumps(a, ensure_ascii=False))
-# f.close()
+with open('temp.json', 'w', encoding='utf-8') as f:
+    f.write(json.dumps(a, ensure_ascii=False))
+f.close()

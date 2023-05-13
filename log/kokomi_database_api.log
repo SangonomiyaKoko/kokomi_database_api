@@ -1,0 +1,4 @@
+[INFO]2023-05-13 22:06:44,962 - server.py[line:75] - : [Started server process [21812]]
+[INFO]2023-05-13 22:06:44,962 - on.py[line:45] - : [Waiting for application startup.]
+[INFO]2023-05-13 22:06:44,963 - on.py[line:59] - : [Application startup complete.]
+[INFO]2023-05-13 22:06:44,963 - server.py[line:206] - : [Uvicorn running on http://127.0.0.1:1001 (Press CTRL+C to quit)]

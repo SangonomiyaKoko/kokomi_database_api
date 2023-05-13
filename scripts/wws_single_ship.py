@@ -6,13 +6,20 @@ import logging
 import asyncio
 import threading
 import gc
+import yaml
 from data_source import (
     server_list,
-    useless_index_list,
+    api_server_list,
     useful_index_list
 )
+from personal_rating import get_personal_rating
 
 file_path = os.path.dirname(os.path.dirname(__file__))
+f = open(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.yaml'))
+config_data = yaml.load(f.read(), Loader=yaml.FullLoader)
+f.close()
+APPLICATION_ID = config_data['ApiToken']['WargamingApiToken']
+LATESTSEASON = config_data['WargamingConfig']['LatestRankSeason']
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,6 +42,7 @@ http://vortex.worldofwarships.{}/api/accounts/{}/ships/pvp_solo/{}
 http://vortex.worldofwarships.{}/api/accounts/{}/ships/pvp_div2/{}
 http://vortex.worldofwarships.{}/api/accounts/{}/ships/pvp_div3/{}
 http://vortex.worldofwarships.{}/api/accounts/{}/ships/rank_solo/{}
+https://api.worldofwarships.asia/wows/seasons/shipstats/?application_id={}&account_id={}&ship_id={}
 http://vortex.worldofwarships.{}/api/accounts/{}/clans/
 -返回数据结构:
 {
@@ -71,7 +79,7 @@ async def requset_data(
             }
             result = res.json()
             if requset_code == 200:
-                return {'status': 'ok', 'message': 'SUCCESS', 'data': result['data']}
+                return {'status': 'ok', 'message': 'SUCCESS', 'data': result}
             if (
                 # 特殊情况处理，如用户没有添加过工会请求会返回404
                 'clan' in url
@@ -116,6 +124,7 @@ def construct_url(
         f'{server_list[server]}/api/accounts/{aid}/ships/{ship_id}/rank_solo/' +
         (f'?ac={ac}' if use_ac else ''),
         f'{server_list[server]}/api/accounts/{aid}/clans/',
+        f'{api_server_list[server]}/wows/seasons/shipstats/?application_id={APPLICATION_ID}&account_id={aid}&ship_id={ship_id}'
     ]
 
 
@@ -128,52 +137,100 @@ async def data_processing(
     处理请求获取的数据
     '''
     temp_data = await requset_data(url=url)
-    if temp_data['status'] != 'ok':
+    if temp_data['data']['status'] != 'ok':
         result['status'] = 'error'
-        result['message'] = temp_data['message']
+        result['message'] = temp_data['data']['message']
         return None
     if index == 0:
-        result['nickname'] = temp_data['data'][aid]['name']
-        result['dog_tag'] = temp_data['data'][aid]['dog_tag']
+        result['nickname'] = temp_data['data']['data'][aid]['name']
+        result['dog_tag'] = temp_data['data']['data'][aid]['dog_tag']
     if index == 0:
         # 写入
-        if 'hidden_profile' in temp_data['data'][aid]:
+        if 'hidden_profile' in temp_data['data']['data'][aid]:
             result['hidden'] == True
         else:
-            result['data']['user'] = temp_data['data'][aid]['statistics']['basic']
+            result['data']['user'] = temp_data['data']['data'][aid]['statistics']['basic']
     elif (
         index >= 1
         and index <= 5
     ):
         type_index_list = ['pvp', 'pvp_solo',
                            'pvp_div2', 'pvp_div3', 'rank_solo']
-        if 'hidden_profile' in temp_data['data'][aid]:
+        if 'hidden_profile' in temp_data['data']['data'][aid]:
             result['hidden'] == True
         else:
-            for ship_id, ship_data in temp_data['data'][aid]['statistics'].items():
+            for ship_id, ship_data in temp_data['data']['data'][aid]['statistics'].items():
                 if result['status'] != 'ok':
                     return None
                 if ship_id not in result['data']['ships']:
                     result['data']['ships'][ship_id] = {
                         'pvp': {}, 'pvp_solo': {}, 'pvp_div2': {}, 'pvp_div3': {}, 'rank_solo': {}}
-                result['data']['ships'][ship_id][type_index_list[index-1]] = del_useless_index(
-                    ship_data[type_index_list[index-1]])
+                result['data']['ships'][ship_id][type_index_list[index-1]] = format_index(
+                    ship_data[type_index_list[index-1]], ship_id, type_index_list[index-1])
     elif index == 6:
-        result['data']['clans'] = temp_data['data']
+        result['data']['clans'] = temp_data['data']['data']
+    elif index == 7:
+        season_list = [str(LATESTSEASON-2),
+                       str(LATESTSEASON-1), str(LATESTSEASON)]
+        if temp_data['data']['meta']['hidden'] == None:
+            season_data = temp_data['data']['data'][aid][0]['seasons']
+            for i in season_list:
+                result['data']['season'][i] = {}
+                if i in season_data:
+                    result['data']['season'][i] = format_season_data(
+                        season_data[i]['0']['rank_solo'])
+        else:
+            for i in season_list:
+                result['data']['season'][i] = {}
     return result
 
 
-def del_useless_index(
+def format_season_data(
     json_data: dict
 ) -> dict:
     '''
-    删除无用数据条目
+    处理排位赛季数据
+    '''
+    temp_json = {
+        'battles_count': json_data['battles'],
+        'wins': json_data['wins'],
+        'losses': json_data['losses'],
+        'damage_dealt': json_data['damage_dealt'],
+        'frags': json_data['frags'],
+        'planes_killed': json_data['planes_killed'],
+        'survived': json_data['survived_battles'],
+        'win_and_survived': json_data['survived_wins'],
+        'hits_by_main': json_data['main_battery']['hits'],
+        'shots_by_main': json_data['main_battery']['shots']
+    }
+    return temp_json
+
+
+def format_index(
+    json_data: dict,
+    ship_id: str,
+    battle_type: str
+) -> dict:
+    '''
+    数据条目
     '''
     if json_data == {}:
         return json_data
     temp_res_data = {}
     for index in useful_index_list:
         temp_res_data[index] = json_data[index]
+    pr_data = get_personal_rating(
+        ship_id=ship_id,
+        ship_data=[
+            temp_res_data['battles_count'],
+            temp_res_data['wins'],
+            temp_res_data['damage_dealt'],
+            temp_res_data['frags'],
+        ],
+        battle_type=battle_type
+    )
+    for index in ['value_battles_count', 'personal_rating', 'n_damage_dealt', 'n_frags']:
+        temp_res_data[index] = pr_data[index]
     return temp_res_data
 
 
@@ -210,6 +267,8 @@ def get_single_ship_data(
             'data': {
                 'user': {},
                 'ships': {},
+                'season': {},
+                'pr': {},
                 'clans': {}
             }
         }
@@ -221,7 +280,7 @@ def get_single_ship_data(
             ac=ac
         )
         thread = []
-        for index in range(0, 7):
+        for index in range(0, 8):
             thread.append(threading.Thread(
                 target=_data_processing,
                 args=(index, aid, url_list[index],
@@ -237,8 +296,8 @@ def get_single_ship_data(
         return {'status': 'error', 'message': '程序内部错误,请联系麻麻解决'}
 
 
-# a = get_single_ship_data(aid='2023619512', server='asia', ship_id='4180555600')
+a = get_single_ship_data(aid='2023619512', server='asia', ship_id='4277090288')
 
-# with open('temp.json', 'w', encoding='utf-8') as f:
-#     f.write(json.dumps(a, ensure_ascii=False))
-# f.close()
+with open('temp.json', 'w', encoding='utf-8') as f:
+    f.write(json.dumps(a, ensure_ascii=False))
+f.close()

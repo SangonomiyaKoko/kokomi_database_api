@@ -8,70 +8,70 @@ class json_index:
 
 
 recent_json_index = [
-    json_index('battles_count', 0),
-    json_index('wins', 1),
-    json_index('losses', 2),
-    json_index('damage_dealt', 3),
-    json_index('ships_spotted', 4),
-    json_index('frags', 5),
-    json_index('survived', 6),
-    json_index('scouting_damage', 7),
-    json_index('original_exp', 8),
-    json_index('exp', 9),
-    json_index('art_agro', 10),
-    json_index('tpd_agro', 11),
-    json_index('win_and_survived', 12),
-    json_index('control_dropped_points', 13),
-    json_index('control_captured_points', 14),
-    json_index('team_control_captured_points', 15),
-    json_index('team_control_dropped_points', 16),
-    json_index('planes_killed', 17),
-    json_index('frags_by_ram', 18),
-    json_index('frags_by_tpd', 19),
-    json_index('frags_by_planes', 20),
-    json_index('frags_by_dbomb', 21),
-    json_index('frags_by_atba', 22),
-    json_index('frags_by_main', 23),
-    json_index('hits_by_main', 24),
-    json_index('shots_by_main', 25),
-    json_index('hits_by_skip', 26),
-    json_index('shots_by_skip', 27),
-    json_index('hits_by_atba', 28),
-    json_index('shots_by_atba', 29),
-    json_index('hits_by_rocket', 30),
-    json_index('shots_by_rocket', 31),
-    json_index('hits_by_bomb', 32),
-    json_index('shots_by_bomb', 33),
-    json_index('hits_by_tpd', 34),
-    json_index('shots_by_tpd', 35),
-    json_index('hits_by_tbomb', 36),
-    json_index('shots_by_tbomb', 37),
+    json_index('battles_count',                  0),
+    json_index('wins',                           1),
+    json_index('losses',                         2),
+    json_index('damage_dealt',                   3),
+    json_index('ships_spotted',                  4),
+    json_index('frags',                          5),
+    json_index('survived',                       6),
+    json_index('scouting_damage',                7),
+    json_index('original_exp',                   8),
+    json_index('exp',                            9),
+    json_index('art_agro',                      10),
+    json_index('tpd_agro',                      11),
+    json_index('win_and_survived',              12),
+    json_index('control_dropped_points',        13),
+    json_index('control_captured_points',       14),
+    json_index('team_control_captured_points',  15),
+    json_index('team_control_dropped_points',   16),
+    json_index('planes_killed',                 17),
+    json_index('frags_by_ram',                  18),
+    json_index('frags_by_tpd',                  19),
+    json_index('frags_by_planes',               20),
+    json_index('frags_by_dbomb',                21),
+    json_index('frags_by_atba',                 22),
+    json_index('frags_by_main',                 23),
+    json_index('hits_by_main',                  24),
+    json_index('shots_by_main',                 25),
+    json_index('hits_by_skip',                  26),
+    json_index('shots_by_skip',                 27),
+    json_index('hits_by_atba',                  28),
+    json_index('shots_by_atba',                 29),
+    json_index('hits_by_rocket',                30),
+    json_index('shots_by_rocket',               31),
+    json_index('hits_by_bomb',                  32),
+    json_index('shots_by_bomb',                 33),
+    json_index('hits_by_tpd',                   34),
+    json_index('shots_by_tpd',                  35),
+    json_index('hits_by_tbomb',                 36),
+    json_index('shots_by_tbomb',                37),
 ]
 
 ach_json_index = [
-    json_index('PCH016_FirstBlood', 0),
-    json_index('PCH004_Dreadnought', 1),
-    json_index('PCH011_InstantKill', 2),
-    json_index('PCH003_MainCaliber', 3),
-    json_index('PCH005_Support', 4),
-    json_index('PCH006_Withering', 5),
-    json_index('PCH023_Warrior', 6),
-    json_index('PCH010_Retribution', 7),
-    json_index('PCH017_Fireproof', 8),
-    json_index('PCH012_Arsonist', 9),
-    json_index('PCH020_ATBACaliber', 10),
-    json_index('PCH001_DoubleKill', 11),
-    json_index('PCH174_AirDefenseExpert', 12),
-    json_index('PCH019_Detonated', 13),
-    json_index('PCH014_Headbutt', 14),
-    json_index('PCH002_OneSoldierInTheField', 15),
-    json_index('PCH018_Unsinkable', 16),
-    json_index('PCH395_CombatRecon', 17),
-    json_index('PCH366_Warrior_Squad', 18),
-    json_index('PCH367_Support_Squad', 19),
-    json_index('PCH368_Frag_Squad', 20),
-    json_index('PCH364_MainCaliber_Squad', 21),
-    json_index('PCH365_ClassDestroy_Squad', 22)
+    json_index('PCH016_FirstBlood',              0),
+    json_index('PCH004_Dreadnought',             1),
+    json_index('PCH011_InstantKill',             2),
+    json_index('PCH003_MainCaliber',             3),
+    json_index('PCH005_Support',                 4),
+    json_index('PCH006_Withering',               5),
+    json_index('PCH023_Warrior',                 6),
+    json_index('PCH010_Retribution',             7),
+    json_index('PCH017_Fireproof',               8),
+    json_index('PCH012_Arsonist',                9),
+    json_index('PCH020_ATBACaliber',            10),
+    json_index('PCH001_DoubleKill',             11),
+    json_index('PCH174_AirDefenseExpert',       12),
+    json_index('PCH019_Detonated',              13),
+    json_index('PCH014_Headbutt',               14),
+    json_index('PCH002_OneSoldierInTheField',   15),
+    json_index('PCH018_Unsinkable',             16),
+    json_index('PCH395_CombatRecon',            17),
+    json_index('PCH366_Warrior_Squad',          18),
+    json_index('PCH367_Support_Squad',          19),
+    json_index('PCH368_Frag_Squad',             20),
+    json_index('PCH364_MainCaliber_Squad',      21),
+    json_index('PCH365_ClassDestroy_Squad',     22)
 ]
 
 ach_index_dict = {
@@ -107,6 +107,13 @@ server_list = {
     'ru': 'http://vortex.korabli.su',
     'cn': 'http://vortex.wowsgame.cn'
 }
+api_server_list = {
+    'asia': 'https://api.worldofwarships.asia',
+    'eu': 'https://api.worldofwarships.eu',
+    'na': 'https://api.worldofwarships.com',
+    'ru': ''
+}
+
 useless_index_list = [
     'damage_dealt_to_buildings',
     'max_damage_dealt_to_buildings',
@@ -121,6 +128,27 @@ useless_index_list = [
     'battles_count_0711',
     'battles_count_512',
     'battles_count_510',
+]
+base_index_list = [
+    'battles_count',                 # 战斗总数
+    'wins',                          # 胜利场数
+    'losses',                        # 失败场数
+    'damage_dealt',                  # 总伤害
+    'ships_spotted',                 # 船只侦查数
+    'frags',                         # 总击杀数
+    'survived',                      # 存活的场数
+    'scouting_damage',               # 总侦查伤害
+    'original_exp',                  # 总经验（无高账加成）
+    'exp',                           # 经验（大概是包括所有模式的总经验，虽然没啥用，但留着吧）
+    'art_agro',                      # 总潜在伤害
+    'tpd_agro',                      # 总鱼雷潜在伤害
+    'win_and_survived',              # 胜利并存活场数
+    'control_dropped_points',        # 总防御点数
+    'control_captured_points',       # 总占领点数
+    'team_control_captured_points',  # 团队总占领点数
+    'team_control_dropped_points',   # 团队总防御点数
+    'planes_killed',                 # 总飞机击落数
+
 ]
 useful_index_list = [
     # 基本数据

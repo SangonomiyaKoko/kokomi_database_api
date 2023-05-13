@@ -309,7 +309,7 @@ def user_db_path(
     '''
     返回用户db文件的路径
     '''
-    os.path.join(DB_PATH, f'{aid}.db')
+    return os.path.join(DB_PATH, f'{aid}.db')
 
 
 def insert_data(
@@ -362,6 +362,9 @@ def update_today_day(
 def ach_decoed(
     ach_data: dict
 ) -> dict:
+    '''
+    解压缩成就数据
+    '''
     temp_json = {}
     for index in ach_json_index:
         if index.index in ach_data:
@@ -372,6 +375,9 @@ def ach_decoed(
 def ships_decoed(
     ships_data: dict
 ) -> dict:
+    '''
+    解压缩船只数据
+    '''
     temp_json = {}
     for ship_id, ship_data in ships_data.items():
         temp_json[ship_id] = {'pvp': {}, 'pvp_solo': {},
@@ -408,7 +414,6 @@ def read_db_data(
     date: str,
     today: str = date.today().strftime("%Y-%m-%d")
 ):
-    st = time.time()
     con = sqlite3.connect(user_db_path(aid=aid, server=servre))
     cursorObj = con.cursor()
     cursorObj.execute("SELECT * FROM recent_data")
@@ -424,7 +429,43 @@ def read_db_data(
     with open(f'dbtest.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(recent_db_data))
     f.close()
+    cursorObj.close()
+    con.close()
     return {'status': 'ok', 'message': 'SUCCESS', 'data': recent_db_data}
 
 
+def get_recent_data(
+    aid: str,
+    servre: str,
+    date: str,
+    today: str = date.today().strftime("%Y-%m-%d")
+) -> dict:
+    '''
+    计算recent数据
+    '''
+    raw_data = read_db_data(
+        aid=aid,
+        servre=servre,
+        date=date
+    )
+
+
+def ships_difference_calculation(
+    new_data: dict,
+    old_data: dict
+) -> dict:
+    '''
+    计算recent差值数据
+    '''
+    temp_res_data = {
+        'all': {},
+        'pvp': {},
+        'rank': {},
+        'ships': []
+    }
+    for ship_id, ship_data
+
+
+st = time.time()
 print(read_db_data('2023619512', 'asia', '2023-04-21'))
+print(time.time()-st)
